@@ -2,5 +2,9 @@
 __pycache__/
 .ipynb_checkpoints/
 .DS_Store
-*.npz
-*.npy
+# large raw datasets — download links in qnn_tc/README.md
+qnn_tc/data/train.csv
+qnn_tc/data/unique_m.csv
+qnn_tc/data/superconduct.zip
+qnn_tc/data/external/3DSC_MP.csv
+qnn_tc/data/external/jarvis_supercon_3d*

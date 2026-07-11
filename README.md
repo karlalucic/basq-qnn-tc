@@ -10,6 +10,14 @@ Original challenge materials:
 - [quantum_regressor_v2.ipynb](quantum_regressor_v2.ipynb) — the mentors' starter
   notebook (single-qubit QNN regressor).
 
+Our pipeline:
+
+- [qnn_tc/](qnn_tc/) — the full working pipeline: data prep, classical
+  baselines, the hardware-aware 4-qubit QNN, real-QPU inference, mitigation
+  ablation, chip tiling, and validation experiments. Trained weights and
+  measured hardware results included; see [qnn_tc/README.md](qnn_tc/README.md)
+  for setup and the measured-results table.
+
 Dataset: [UCI Superconductivity Data](https://archive.ics.uci.edu/dataset/464/superconductivty+data)
 
 Team: Loïc, Haripriya, Abbas, Karla, Andrian, Sam · Mentors: Benjamin Tirado & Unai Aseguinolaza
