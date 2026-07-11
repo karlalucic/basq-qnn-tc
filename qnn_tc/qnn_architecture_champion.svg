@@ -1,0 +1,207 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="980" viewBox="0 0 1600 980" role="img" aria-labelledby="title desc">
+  <title id="title">Champion QNN architecture for Tc regression</title>
+  <desc id="desc">A labeled diagram of the 4-qubit, 2-layer data re-uploading QNN with PLS-4 inputs, trainable Ry encodings, Rz/Ry variational gates, a CZ chain between layers, mean-Z readout, and Tc output.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#263238"/>
+    </marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#111827" flood-opacity="0.12"/>
+    </filter>
+    <style>
+      .bg { fill: #f7f8fb; }
+      .panel { fill: #ffffff; stroke: #d7dce5; stroke-width: 2; filter: url(#shadow); }
+      .panel-soft { fill: #fdfefe; stroke: #d7dce5; stroke-width: 2; }
+      .title { font: 700 34px Arial, sans-serif; fill: #14213d; }
+      .subtitle { font: 400 18px Arial, sans-serif; fill: #455a64; }
+      .section { font: 700 18px Arial, sans-serif; fill: #14213d; }
+      .small { font: 400 14px Arial, sans-serif; fill: #52616f; }
+      .tiny { font: 400 12px Arial, sans-serif; fill: #52616f; }
+      .badge { font: 700 14px Arial, sans-serif; fill: #ffffff; }
+      .boxtext { font: 700 16px Arial, sans-serif; fill: #1f2937; }
+      .wire-label { font: 700 16px Arial, sans-serif; fill: #1f2937; }
+      .gate-label { font: 700 13px Arial, sans-serif; fill: #102a43; }
+      .gate-note { font: 400 11px Arial, sans-serif; fill: #102a43; }
+      .arrow { stroke: #263238; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+      .wire { stroke: #263238; stroke-width: 2.5; }
+      .divider { stroke: #d7dce5; stroke-width: 2; stroke-dasharray: 8 8; }
+      .input { fill: #e9f5ff; stroke: #6aaed6; stroke-width: 2; }
+      .encode { fill: #e6f4ea; stroke: #47a36d; stroke-width: 2; }
+      .var { fill: #fff3d6; stroke: #c7901f; stroke-width: 2; }
+      .cz-dot { fill: #243b53; }
+      .readout { fill: #f1e8ff; stroke: #8b5cf6; stroke-width: 2; }
+      .result { fill: #ffe8e0; stroke: #ef6c48; stroke-width: 2; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1600" height="980"/>
+
+  <text x="60" y="66" class="title">Champion QNN: 4 qubits x 2 layers for superconducting Tc</text>
+  <text x="60" y="98" class="subtitle">Best ideal result in this repo: PLS-4 inputs, 32 trainable parameters, 3 CZ gates, ISA depth 21, 0 SWAPs, 19.8 K RMSE.</text>
+
+  <rect x="58" y="124" width="1484" height="64" rx="12" class="panel-soft"/>
+  <rect x="80" y="144" width="202" height="28" rx="14" fill="#2563eb"/>
+  <text x="98" y="164" class="badge">What makes it special</text>
+  <text x="306" y="163" class="small">It re-uploads the same 4 learned input features twice. Each upload has trainable scale and offset, so the circuit can learn useful nonlinear curves while staying shallow enough for IBM Heron hardware.</text>
+
+  <!-- Data preprocessing -->
+  <rect x="60" y="232" width="340" height="510" rx="16" class="panel"/>
+  <text x="90" y="274" class="section">1. Classical front end</text>
+  <text x="90" y="303" class="small">This part compresses the material data before it reaches the quantum circuit.</text>
+
+  <rect x="94" y="346" width="272" height="70" rx="12" class="input"/>
+  <text x="126" y="376" class="boxtext">81 material descriptors</text>
+  <text x="126" y="400" class="small">composition features from the dataset</text>
+
+  <path d="M230 416 L230 462" class="arrow"/>
+  <rect x="94" y="472" width="272" height="86" rx="12" class="input"/>
+  <text x="126" y="502" class="boxtext">PLS-4 compressor</text>
+  <text x="126" y="526" class="small">supervised reduction to 4 numbers</text>
+  <text x="126" y="548" class="tiny">fit on training rows only</text>
+
+  <path d="M230 558 L230 604" class="arrow"/>
+  <rect x="94" y="614" width="272" height="90" rx="12" class="input"/>
+  <text x="126" y="644" class="boxtext">Angle-scaled inputs</text>
+  <text x="126" y="668" class="small">x0, x1, x2, x3</text>
+  <text x="126" y="690" class="tiny">scaled into [-pi/2, pi/2]</text>
+
+  <path d="M366 659 C412 659 414 470 458 470" class="arrow"/>
+
+  <!-- Quantum circuit panel -->
+  <rect x="440" y="232" width="820" height="510" rx="16" class="panel"/>
+  <text x="470" y="274" class="section">2. Quantum circuit: data re-uploading ansatz</text>
+  <text x="470" y="303" class="small">Each qubit gets an input rotation, then trainable rotations. A CZ chain entangles neighboring qubits between the two layers.</text>
+
+  <text x="486" y="374" class="wire-label">q0</text>
+  <text x="486" y="464" class="wire-label">q1</text>
+  <text x="486" y="554" class="wire-label">q2</text>
+  <text x="486" y="644" class="wire-label">q3</text>
+
+  <line x1="530" y1="368" x2="1192" y2="368" class="wire"/>
+  <line x1="530" y1="458" x2="1192" y2="458" class="wire"/>
+  <line x1="530" y1="548" x2="1192" y2="548" class="wire"/>
+  <line x1="530" y1="638" x2="1192" y2="638" class="wire"/>
+
+  <text x="560" y="337" class="section">Layer 0</text>
+  <text x="910" y="337" class="section">Layer 1</text>
+  <line x1="875" y1="330" x2="875" y2="680" class="divider"/>
+
+  <!-- Layer 0 gates -->
+  <rect x="552" y="336" width="116" height="64" rx="10" class="encode"/>
+  <text x="577" y="361" class="gate-label">Ry(s*x0+o)</text>
+  <text x="588" y="381" class="gate-note">encode q0</text>
+
+  <rect x="552" y="426" width="116" height="64" rx="10" class="encode"/>
+  <text x="577" y="451" class="gate-label">Ry(s*x1+o)</text>
+  <text x="588" y="471" class="gate-note">encode q1</text>
+
+  <rect x="552" y="516" width="116" height="64" rx="10" class="encode"/>
+  <text x="577" y="541" class="gate-label">Ry(s*x2+o)</text>
+  <text x="588" y="561" class="gate-note">encode q2</text>
+
+  <rect x="552" y="606" width="116" height="64" rx="10" class="encode"/>
+  <text x="577" y="631" class="gate-label">Ry(s*x3+o)</text>
+  <text x="588" y="651" class="gate-note">encode q3</text>
+
+  <rect x="696" y="336" width="112" height="64" rx="10" class="var"/>
+  <text x="724" y="361" class="gate-label">Rz(a)</text>
+  <text x="724" y="381" class="gate-label">Ry(c)</text>
+
+  <rect x="696" y="426" width="112" height="64" rx="10" class="var"/>
+  <text x="724" y="451" class="gate-label">Rz(a)</text>
+  <text x="724" y="471" class="gate-label">Ry(c)</text>
+
+  <rect x="696" y="516" width="112" height="64" rx="10" class="var"/>
+  <text x="724" y="541" class="gate-label">Rz(a)</text>
+  <text x="724" y="561" class="gate-label">Ry(c)</text>
+
+  <rect x="696" y="606" width="112" height="64" rx="10" class="var"/>
+  <text x="724" y="631" class="gate-label">Rz(a)</text>
+  <text x="724" y="651" class="gate-label">Ry(c)</text>
+
+  <!-- CZ chain -->
+  <line x1="840" y1="368" x2="840" y2="458" stroke="#243b53" stroke-width="3"/>
+  <circle cx="840" cy="368" r="8" class="cz-dot"/>
+  <circle cx="840" cy="458" r="8" class="cz-dot"/>
+
+  <line x1="856" y1="458" x2="856" y2="548" stroke="#243b53" stroke-width="3"/>
+  <circle cx="856" cy="458" r="8" class="cz-dot"/>
+  <circle cx="856" cy="548" r="8" class="cz-dot"/>
+
+  <line x1="840" y1="548" x2="840" y2="638" stroke="#243b53" stroke-width="3"/>
+  <circle cx="840" cy="548" r="8" class="cz-dot"/>
+  <circle cx="840" cy="638" r="8" class="cz-dot"/>
+
+  <text x="802" y="704" class="small">CZ chain: q0-q1, q1-q2, q2-q3</text>
+
+  <!-- Layer 1 gates -->
+  <rect x="918" y="336" width="116" height="64" rx="10" class="encode"/>
+  <text x="943" y="361" class="gate-label">Ry(s*x1+o)</text>
+  <text x="954" y="381" class="gate-note">encode q0</text>
+
+  <rect x="918" y="426" width="116" height="64" rx="10" class="encode"/>
+  <text x="943" y="451" class="gate-label">Ry(s*x2+o)</text>
+  <text x="954" y="471" class="gate-note">encode q1</text>
+
+  <rect x="918" y="516" width="116" height="64" rx="10" class="encode"/>
+  <text x="943" y="541" class="gate-label">Ry(s*x3+o)</text>
+  <text x="954" y="561" class="gate-note">encode q2</text>
+
+  <rect x="918" y="606" width="116" height="64" rx="10" class="encode"/>
+  <text x="943" y="631" class="gate-label">Ry(s*x0+o)</text>
+  <text x="954" y="651" class="gate-note">encode q3</text>
+
+  <rect x="1062" y="336" width="112" height="64" rx="10" class="var"/>
+  <text x="1090" y="361" class="gate-label">Rz(a)</text>
+  <text x="1090" y="381" class="gate-label">Ry(c)</text>
+
+  <rect x="1062" y="426" width="112" height="64" rx="10" class="var"/>
+  <text x="1090" y="451" class="gate-label">Rz(a)</text>
+  <text x="1090" y="471" class="gate-label">Ry(c)</text>
+
+  <rect x="1062" y="516" width="112" height="64" rx="10" class="var"/>
+  <text x="1090" y="541" class="gate-label">Rz(a)</text>
+  <text x="1090" y="561" class="gate-label">Ry(c)</text>
+
+  <rect x="1062" y="606" width="112" height="64" rx="10" class="var"/>
+  <text x="1090" y="631" class="gate-label">Rz(a)</text>
+  <text x="1090" y="651" class="gate-label">Ry(c)</text>
+
+  <text x="930" y="704" class="small">No CZ after final layer in the implementation.</text>
+
+  <!-- Legend in circuit panel -->
+  <rect x="470" y="692" width="18" height="18" rx="4" class="encode"/>
+  <text x="496" y="706" class="tiny">trainable input upload</text>
+  <rect x="640" y="692" width="18" height="18" rx="4" class="var"/>
+  <text x="666" y="706" class="tiny">trainable quantum weights</text>
+  <circle cx="782" cy="701" r="7" class="cz-dot"/>
+  <text x="796" y="706" class="tiny">CZ entangler</text>
+
+  <path d="M1192 503 C1220 503 1226 502 1260 502" class="arrow"/>
+
+  <!-- Readout -->
+  <rect x="1286" y="232" width="254" height="510" rx="16" class="panel"/>
+  <text x="1316" y="274" class="section">3. Readout and prediction</text>
+  <text x="1316" y="303" class="small">The model does not read bitstrings directly. It estimates simple Z averages.</text>
+
+  <rect x="1320" y="354" width="186" height="78" rx="12" class="readout"/>
+  <text x="1350" y="385" class="boxtext">Measure Z</text>
+  <text x="1350" y="409" class="small">on q0, q1, q2, q3</text>
+
+  <path d="M1413 432 L1413 478" class="arrow"/>
+  <rect x="1320" y="488" width="186" height="88" rx="12" class="readout"/>
+  <text x="1350" y="520" class="boxtext">Average them</text>
+  <text x="1341" y="546" class="small">(Z0+Z1+Z2+Z3)/4</text>
+  <text x="1365" y="568" class="tiny">noise-friendly output</text>
+
+  <path d="M1413 576 L1413 622" class="arrow"/>
+  <rect x="1320" y="632" width="186" height="72" rx="12" class="result"/>
+  <text x="1354" y="662" class="boxtext">Tc prediction</text>
+  <text x="1352" y="686" class="small">converted back to Kelvin</text>
+
+  <!-- Bottom notes -->
+  <rect x="60" y="792" width="1480" height="116" rx="16" class="panel-soft"/>
+  <text x="88" y="828" class="section">Simple mental model</text>
+  <text x="88" y="858" class="small">Think of the QNN as a small quantum mixer. The PLS step gives it four strong ingredients. Layer 0 stirs them into four qubits, the CZ chain lets neighboring qubits interact, and Layer 1 stirs the ingredients in again with a shifted order. The final average Z value is the single number used for regression.</text>
+  <text x="88" y="886" class="small">The same PLS-4 champion was validated on ibm_fez: 22.89 K hardware RMSE versus 23.00 K ideal on the frozen 50 materials.</text>
+</svg>
