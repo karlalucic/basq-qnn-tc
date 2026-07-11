@@ -20,4 +20,4 @@ Our pipeline:
 
 Dataset: [UCI Superconductivity Data](https://archive.ics.uci.edu/dataset/464/superconductivty+data)
 
-Team: Loïc, Haripriya, Abbas, Karla, Andrian, Sam · Mentors: Benjamin Tirado & Unai Aseguinolaza
+Team: Loïc, Haripriya, Abbas, Khadija, Karla, Sam · Mentors: Benjamin Tirado & Unai Aseguinolaza
