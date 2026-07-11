@@ -12,6 +12,11 @@ Original challenge materials:
 
 Our pipeline:
 
+- [qnn_tc/BasQ_QNN_Tc.ipynb](qnn_tc/BasQ_QNN_Tc.ipynb) — **the reproducible
+  study notebook**: equations, architecture comparison, real-QPU results with
+  charts; runs end-to-end in ~4 min (see its appendix for required data files —
+  everything is included here except `train.csv`, download link below).
+
 - [qnn_tc/](qnn_tc/) — the full working pipeline: data prep, classical
   baselines, the hardware-aware 4-qubit QNN, real-QPU inference, mitigation
   ablation, chip tiling, and validation experiments. Trained weights and
