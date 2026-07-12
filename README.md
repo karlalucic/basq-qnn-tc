@@ -23,6 +23,12 @@ Our pipeline:
   measured hardware results included; see [qnn_tc/README.md](qnn_tc/README.md)
   for setup and the measured-results table.
 
+- [scaling_study/](scaling_study/) — qubit-count scaling study (Haripriya):
+  PCA vs supervised Top-N encodings across 2-10 qubits, ideal simulation vs
+  real hardware. Conclusion: ideal RMSE keeps improving with more qubits, but
+  depth/gate noise erodes the gain on hardware - hardware-aware design, not
+  qubit count, is the lever. See [scaling_study/README_results.md](scaling_study/README_results.md).
+
 Dataset: [UCI Superconductivity Data](https://archive.ics.uci.edu/dataset/464/superconductivty+data)
 
 Team: Loïc, Haripriya, Abbas, Khadija, Karla, Sam · Mentors: Benjamin Tirado & Unai Aseguinolaza
