@@ -23,8 +23,8 @@ classic BOINC / Folding@home shape. Two more properties make it a clean fit:
 For each candidate composition:
 
 1. **Featurize** the formula → 81 UCI features (via `featurize_formula.py`) →
-   the **hybrid 8-feature encoding** used by our best QNN (4 physics features +
-   4 PLS components).
+   a **hybrid 8-feature encoding** (4 physics features + 4 PLS components) — a
+   richer input space than the shipped PLS-4 champion QNN.
 2. **Ensemble predict** with `K = 12` models → **mean Tc + spread (uncertainty)**.
    In production each ensemble member is a QNN variant; here fast bootstrap
    surrogates on the same features demonstrate the pipeline.

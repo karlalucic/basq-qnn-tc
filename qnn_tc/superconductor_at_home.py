@@ -1,8 +1,8 @@
 """Superconductor@home -- one volunteer WORK UNIT for distributed, uncertainty-
 aware virtual screening of superconductor candidates.
 
-Now uses the HYBRID 8-feature encoding (4 physics features + 4 PLS components),
-the same inputs as the hybrid QNN that scored 20.08 K.
+Uses a HYBRID 8-feature encoding (4 physics features + 4 PLS components) — a
+richer input space than the shipped PLS-4 champion QNN (19.84 K, see README).
 
 Pipeline per candidate: featurize -> 81 features -> [4 physics | 4 PLS] ->
 ensemble predict (mean Tc + uncertainty) -> OOD flag -> acquisition rank.
