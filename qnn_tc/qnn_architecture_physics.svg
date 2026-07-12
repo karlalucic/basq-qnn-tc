@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Physics-structured QNN architecture for Tc regression</title>
+  <desc id="desc">A 4-qubit data re-uploading QNN whose qubits carry physical roles (phonon, electron/DOS, charge-transfer, regime) and whose entanglement is a hub centered on the electron qubit, realizing the electron-phonon coupling. Layer one encodes physics features, layer two re-uploads PLS components, mean-Z readout gives Tc.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#263238"/>
+    </marker>
+    <filter id="shadow" x="-4%" y="-4%" width="108%" height="112%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#243b53" flood-opacity="0.12"/>
+    </filter>
+    <style>
+      .bg { fill: #f7f8fb; }
+      .panel { fill: #ffffff; stroke: #d7dce5; stroke-width: 2; filter: url(#shadow); }
+      .panel-soft { fill: #fdfefe; stroke: #d7dce5; stroke-width: 2; }
+      .hub-panel { fill: #fff6f2; stroke: #ef6c48; stroke-width: 2; stroke-dasharray: 7 6; }
+      .title { font: 700 34px Arial, sans-serif; fill: #14213d; }
+      .subtitle { font: 400 18px Arial, sans-serif; fill: #455a64; }
+      .section { font: 700 18px Arial, sans-serif; fill: #14213d; }
+      .small { font: 400 14px Arial, sans-serif; fill: #52616f; }
+      .tiny { font: 400 12px Arial, sans-serif; fill: #52616f; }
+      .badge { font: 700 14px Arial, sans-serif; fill: #ffffff; }
+      .boxtext { font: 700 15px Arial, sans-serif; fill: #1f2937; }
+      .rolebig { font: 700 16px Arial, sans-serif; fill: #14213d; }
+      .rolesub { font: 400 12px Arial, sans-serif; fill: #52616f; }
+      .gate-label { font: 700 13px Arial, sans-serif; fill: #102a43; }
+      .gate-note { font: 400 11px Arial, sans-serif; fill: #102a43; }
+      .hublab { font: 700 14px Arial, sans-serif; fill: #ef6c48; }
+      .arrow { stroke: #263238; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+      .wire { stroke: #263238; stroke-width: 2.5; }
+      .czwire { stroke: #ef6c48; stroke-width: 3.5; }
+      .czwire-plain { stroke: #243b53; stroke-width: 3; }
+      .divider { stroke: #d7dce5; stroke-width: 2; stroke-dasharray: 8 8; }
+      .input { fill: #e9f5ff; stroke: #6aaed6; stroke-width: 2; }
+      .encode { fill: #e6f4ea; stroke: #47a36d; stroke-width: 2; }
+      .encode2 { fill: #e9f5ff; stroke: #6aaed6; stroke-width: 2; }
+      .var { fill: #fff3d6; stroke: #c7901f; stroke-width: 2; }
+      .cz-dot { fill: #243b53; }
+      .cz-dot-hub { fill: #ef6c48; }
+      .readout { fill: #f1e8ff; stroke: #8b5cf6; stroke-width: 2; }
+      .result { fill: #ffe8e0; stroke: #ef6c48; stroke-width: 2; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1600" height="1000"/>
+  <text x="60" y="66" class="title">Physics-structured QNN: entanglement = electron–phonon coupling</text>
+  <text x="60" y="98" class="subtitle">4 qubits with physical roles · 32 parameters · 3 CZ (hub) · ISA depth 21 · 0 SWAPs · hybrid RMSE 20.08 K, validated on ibm_fez.</text>
+
+  <!-- special badge -->
+  <rect x="58" y="124" width="1484" height="70" rx="12" class="panel-soft"/>
+  <rect x="80" y="146" width="214" height="28" rx="14" fill="#ef6c48"/>
+  <text x="98" y="166" class="badge">What makes it special</text>
+  <text x="312" y="150" class="small">Instead of a generic chain, each qubit carries a physical quantity and the electron/DOS qubit is entangled with the phonon,</text>
+  <text x="312" y="172" class="small">charge-transfer and regime qubits — so the circuit's entanglement encodes the electron–phonon interaction, the mechanism of superconductivity itself.</text>
+
+  <!-- classical front end -->
+  <rect x="60" y="230" width="330" height="560" rx="16" class="panel"/>
+  <text x="90" y="272" class="section">1 · Classical front end</text>
+  <text x="90" y="300" class="small">Turn 81 descriptors into 4+4 inputs.</text>
+  <rect x="92" y="326" width="266" height="60" rx="12" class="input"/>
+  <text x="120" y="362" class="boxtext">81 material descriptors</text>
+  <line x1="225" y1="386" x2="225" y2="420" class="arrow"/>
+  <rect x="92" y="420" width="266" height="86" rx="12" class="encode"/>
+  <text x="112" y="448" class="boxtext">4 physics features</text>
+  <text x="112" y="470" class="rolesub">θ_D · DOS · charge-transfer · regime</text>
+  <text x="112" y="492" class="rolesub">(BCS / McMillan, interpretable)</text>
+  <line x1="225" y1="506" x2="225" y2="540" class="arrow"/>
+  <rect x="92" y="540" width="266" height="72" rx="12" class="encode2"/>
+  <text x="112" y="568" class="boxtext">4 PLS components</text>
+  <text x="112" y="590" class="rolesub">supervised compression, re-uploaded</text>
+  <text x="90" y="660" class="small">Layer 1 encodes the physics; layer 2</text>
+  <text x="90" y="680" class="small">re-uploads PLS — 8 inputs on 4 qubits,</text>
+  <text x="90" y="700" class="small">at no extra qubits or gates.</text>
+
+  <!-- quantum circuit panel -->
+  <rect x="410" y="230" width="940" height="560" rx="16" class="panel"/>
+  <text x="440" y="272" class="section">2 · Physics-structured quantum circuit (2 layers)</text>
+
+  <!-- wire role labels -->
+  <text x="440" y="352" class="rolebig">q0 · phonon</text><text x="440" y="370" class="rolesub">Ry(θ_D)</text>
+  <text x="440" y="452" class="rolebig">q1 · electron</text><text x="440" y="470" class="rolesub">DOS · HUB</text>
+  <text x="440" y="552" class="rolebig">q2 · charge</text><text x="440" y="570" class="rolesub">transfer</text>
+  <text x="440" y="652" class="rolebig">q3 · regime</text><text x="440" y="670" class="rolesub">mechanism</text>
+
+  <!-- wires -->
+  <line x1="560" y1="352" x2="1210" y2="352" class="wire"/>
+  <line x1="560" y1="452" x2="1210" y2="452" class="wire"/>
+  <line x1="560" y1="552" x2="1210" y2="552" class="wire"/>
+  <line x1="560" y1="652" x2="1210" y2="652" class="wire"/>
+
+  <!-- LAYER 1: encode (green) -->
+  <g>
+    <rect x="576" y="330" width="96" height="44" rx="9" class="encode"/><text x="588" y="358" class="gate-label">Ry enc</text>
+    <rect x="576" y="430" width="96" height="44" rx="9" class="encode"/><text x="588" y="458" class="gate-label">Ry enc</text>
+    <rect x="576" y="530" width="96" height="44" rx="9" class="encode"/><text x="588" y="558" class="gate-label">Ry enc</text>
+    <rect x="576" y="630" width="96" height="44" rx="9" class="encode"/><text x="588" y="658" class="gate-label">Ry enc</text>
+  </g>
+  <!-- LAYER 1: variational (yellow) -->
+  <g>
+    <rect x="686" y="330" width="96" height="44" rx="9" class="var"/><text x="696" y="358" class="gate-label">Rz · Ry</text>
+    <rect x="686" y="430" width="96" height="44" rx="9" class="var"/><text x="696" y="458" class="gate-label">Rz · Ry</text>
+    <rect x="686" y="530" width="96" height="44" rx="9" class="var"/><text x="696" y="558" class="gate-label">Rz · Ry</text>
+    <rect x="686" y="630" width="96" height="44" rx="9" class="var"/><text x="696" y="658" class="gate-label">Rz · Ry</text>
+  </g>
+
+  <!-- HUB ENTANGLEMENT highlight -->
+  <rect x="812" y="300" width="150" height="404" rx="14" class="hub-panel"/>
+  <text x="828" y="292" class="hublab">electron-hub CZ</text>
+  <!-- CZ(q1,q0) = electron-phonon (highlighted red) -->
+  <line x1="852" y1="452" x2="852" y2="352" class="czwire"/>
+  <circle cx="852" cy="452" r="9" class="cz-dot-hub"/><circle cx="852" cy="352" r="9" class="cz-dot-hub"/>
+  <text x="700" y="322" class="hublab" text-anchor="start">CZ(electron, phonon) = electron–phonon coupling</text>
+  <!-- CZ(q1,q2) -->
+  <line x1="895" y1="452" x2="895" y2="552" class="czwire-plain"/>
+  <circle cx="895" cy="452" r="9" class="cz-dot"/><circle cx="895" cy="552" r="9" class="cz-dot"/>
+  <!-- CZ(q1,q3) -->
+  <line x1="935" y1="452" x2="935" y2="652" class="czwire-plain"/>
+  <circle cx="935" cy="452" r="9" class="cz-dot"/><circle cx="935" cy="652" r="9" class="cz-dot"/>
+  <text x="828" y="728" class="tiny">3 CZ, all from q1 (electron)</text>
+
+  <!-- LAYER 2: encode PLS (blue) -->
+  <g>
+    <rect x="992" y="330" width="100" height="44" rx="9" class="encode2"/><text x="1002" y="352" class="gate-label">Ry enc</text><text x="1010" y="367" class="gate-note">PLS-1</text>
+    <rect x="992" y="430" width="100" height="44" rx="9" class="encode2"/><text x="1002" y="452" class="gate-label">Ry enc</text><text x="1010" y="467" class="gate-note">PLS-2</text>
+    <rect x="992" y="530" width="100" height="44" rx="9" class="encode2"/><text x="1002" y="552" class="gate-label">Ry enc</text><text x="1010" y="567" class="gate-note">PLS-3</text>
+    <rect x="992" y="630" width="100" height="44" rx="9" class="encode2"/><text x="1002" y="652" class="gate-label">Ry enc</text><text x="1010" y="667" class="gate-note">PLS-4</text>
+  </g>
+  <!-- LAYER 2: variational -->
+  <g>
+    <rect x="1104" y="330" width="96" height="44" rx="9" class="var"/><text x="1114" y="358" class="gate-label">Rz · Ry</text>
+    <rect x="1104" y="430" width="96" height="44" rx="9" class="var"/><text x="1114" y="458" class="gate-label">Rz · Ry</text>
+    <rect x="1104" y="530" width="96" height="44" rx="9" class="var"/><text x="1114" y="558" class="gate-label">Rz · Ry</text>
+    <rect x="1104" y="630" width="96" height="44" rx="9" class="var"/><text x="1114" y="658" class="gate-label">Rz · Ry</text>
+  </g>
+
+  <!-- layer dividers / labels -->
+  <line x1="820" y1="248" x2="820" y2="300" class="divider"/>
+  <text x="640" y="766" class="small" text-anchor="middle">Layer 1 · physics features</text>
+  <text x="1090" y="766" class="small" text-anchor="middle">Layer 2 · PLS re-upload</text>
+
+  <!-- readout + result -->
+  <rect x="1370" y="230" width="180" height="560" rx="16" class="panel"/>
+  <text x="1398" y="272" class="section">3 · Readout</text>
+  <line x1="1210" y1="502" x2="1392" y2="502" class="arrow"/>
+  <rect x="1392" y="440" width="132" height="120" rx="12" class="readout"/>
+  <text x="1410" y="492" class="boxtext">mean-Z</text>
+  <text x="1408" y="516" class="rolesub">over 4 qubits</text>
+  <text x="1408" y="536" class="rolesub">readout-robust</text>
+  <line x1="1458" y1="560" x2="1458" y2="606" class="arrow"/>
+  <rect x="1392" y="606" width="132" height="70" rx="12" class="result"/>
+  <text x="1430" y="640" class="boxtext">Tc (K)</text>
+  <text x="1404" y="660" class="rolesub">predicted</text>
+
+  <!-- footer legend -->
+  <rect x="60" y="828" width="1490" height="120" rx="14" class="panel-soft"/>
+  <text x="84" y="862" class="section">Why the entanglement is physics</text>
+  <rect x="84" y="882" width="20" height="20" rx="5" class="encode"/><text x="112" y="898" class="small">green = data encoding (trainable scale + offset, re-uploaded)</text>
+  <rect x="560" y="882" width="20" height="20" rx="5" class="var"/><text x="588" y="898" class="small">yellow = trainable Rz/Ry</text>
+  <circle cx="880" cy="892" r="9" class="cz-dot-hub"/><text x="900" y="898" class="small">red hub = electron–phonon CZ</text>
+  <text x="84" y="928" class="small">The electron qubit couples to phonon, charge-transfer and regime — mirroring how electrons interact with the lattice and bonding in a real superconductor. Same 3-CZ cost as a generic chain, yet it beats the chain by 1.78 K.</text>
+</svg>
