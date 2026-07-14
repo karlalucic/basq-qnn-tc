@@ -15,7 +15,6 @@ from sklearn.preprocessing import MinMaxScaler, StandardScaler
 
 from dsc_ablation import build_joined_table, STRUCT_COLS, kelvin_metrics
 from featurize_formula import feature_columns
-from baselines import rmse_kelvin
 from qnn import train
 
 SEED = 42

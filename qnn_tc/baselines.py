@@ -53,7 +53,7 @@ def run_reference_ceiling(d):
     m = HistGradientBoostingRegressor(random_state=0)
     m.fit(d["X_train_full"], d["y_train_full"])
     rm, ma = rmse_kelvin(d["y_test_full"], m.predict(d["X_test_full"]), d)
-    print(f"{'hist_gbm (full rows, PCA space)':35s} RMSE {rm:6.2f} K   MAE {ma:6.2f} K")
+    print(f"{'hist_gbm (full rows, reduced inputs)':35s} RMSE {rm:6.2f} K   MAE {ma:6.2f} K")
     return rm, ma
 
 

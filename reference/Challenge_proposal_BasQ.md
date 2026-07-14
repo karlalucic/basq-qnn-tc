@@ -10,7 +10,7 @@ _(Please use this template as a guideline. Answer as accurately as possible, and
 
 2. **Research Group Name**: Benjamin Tirado, Unai Aseguinolaza,  
 
-3. **Contact Email(s)**: redacted, redacted  
+3. **Contact Email(s)**: redacted in this public mirror  
 
 4. **Research Field/Expertise**: Quantum optimization and Quantum simulation using IBM Quantum Computers.  
 

@@ -1,4 +1,4 @@
-# qnn_tc — QNN pipeline for the BasQ Tc-regression challenge
+# qnn_tc: QNN pipeline for the BasQ Tc-regression challenge
 
 Ready-to-run pipeline for the CERN Quantum Materials Hackathon 2026.
 Predicts superconductor critical temperature with a hardware-aware
@@ -12,7 +12,7 @@ python3.12 -m venv .venv
 .venv/bin/pip install -r requirements.txt
 ```
 
-Large raw datasets are not in the repo — download once:
+Large raw datasets are not in the repo; download them once:
 
 - UCI superconductivity data (`train.csv`, `unique_m.csv` -> `data/`):
   https://archive.ics.uci.edu/dataset/464/superconductivty+data
@@ -36,13 +36,14 @@ All prepared inputs (`data/prepared_*.npz`), trained weights
 | 7. Chip tiling | `tiling_experiment.py` (sim), `tiled_qpu_ab.py` (real A/B) | 25 parallel copies of the QNN, 25x fewer parameter rows |
 | 8. Robustness | `multiseed.py`, `fresh_holdout.py`, `frozen50_check.py` | seed variance, untouched holdout, controlled 50-point comparisons |
 | 9. Input experiments | `qubo_select.py`, `featurize_formula.py`, `post2018_eval.py`, `dsc_ablation.py`, `struct_qnn_experiment.py` | QUBO feature selection, out-of-time validation, 3DSC structure ablation |
+| 10. Training curves | `loss_curves.py` | regenerates `data/loss_curves.npz` (QNN + MLP histories, ~40 min); `team_training_curves.ipynb` is the team runbook for the same job |
 
 ## Architecture (qnn.py)
 
 Data re-uploading ansatz with trainable frequencies: per layer, each qubit gets
 `Ry(s*x_f + o)` (feature f round-robin, s and o trainable) -> `Rz`, `Ry`
-trainable -> CZ linear chain (skipped after the last layer — CZ is diagonal in
-the measurement basis). Observable = mean of single-qubit Z.
+trainable -> CZ linear chain (skipped after the last layer, since CZ is diagonal
+in the measurement basis). Observable = mean of single-qubit Z.
 
 Champion: **4 qubits x 2 layers, 32 params, PLS-4 inputs** -> ISA depth 21,
 **3 CZ, 0 SWAPs** on Heron.

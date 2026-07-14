@@ -8,7 +8,6 @@ inference of a trained circuit is one batched job.
 
 import numpy as np
 from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
-from qiskit_aer import AerSimulator
 from qiskit_aer.primitives import EstimatorV2 as AerEstimator
 from qiskit_ibm_runtime.fake_provider import FakeTorino
 

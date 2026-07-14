@@ -20,9 +20,8 @@ from qiskit.circuit import Parameter, ParameterVector
 from qiskit.quantum_info import SparsePauliOp
 from qiskit_machine_learning.neural_networks import EstimatorQNN
 from qiskit_machine_learning.algorithms import NeuralNetworkRegressor
-from qiskit_machine_learning.optimizers import L_BFGS_B, COBYLA
+from qiskit_machine_learning.optimizers import L_BFGS_B
 
-from prep_data import inverse_target
 from baselines import rmse_kelvin
 
 
