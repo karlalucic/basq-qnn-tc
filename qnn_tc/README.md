@@ -37,6 +37,7 @@ All prepared inputs (`data/prepared_*.npz`), trained weights
 | 8. Robustness | `multiseed.py`, `fresh_holdout.py`, `frozen50_check.py` | seed variance, untouched holdout, controlled 50-point comparisons |
 | 9. Input experiments | `qubo_select.py`, `featurize_formula.py`, `post2018_eval.py`, `dsc_ablation.py`, `struct_qnn_experiment.py` | QUBO feature selection, out-of-time validation, 3DSC structure ablation |
 | 10. Training curves | `loss_curves.py` | regenerates `data/loss_curves.npz` (QNN + MLP histories, ~40 min); `team_training_curves.ipynb` is the team runbook for the same job |
+| 11. Final-week QPU runs | `holdout_prereg.py`, `final_qpu_submit.py`, `final_qpu_collect.py` | preregistered holdout + full-test tiled runs on two Herons; job IDs in `data/final_runs_jobs.json` |
 
 ## Architecture (qnn.py)
 
@@ -48,11 +49,13 @@ in the measurement basis). Observable = mean of single-qubit Z.
 Champion: **4 qubits x 2 layers, 32 params, PLS-4 inputs** -> ISA depth 21,
 **3 CZ, 0 SWAPs** on Heron.
 
-## Key measured results (ibm_fez, July 2026)
+## Key measured results (IBM Heron QPUs, July 2026)
 
 | Experiment | Result |
 |---|---|
 | Ideal test RMSE (200 pts) | champion 19.8 K (linear 20.2, param-matched MLP 21.3) |
+| Full test set on hardware, tiled (200 pts, July 22) | fez **20.78 K**, marrakesh **21.52 K** vs ideal 19.83 K (r = 0.99) |
+| Preregistered fresh holdout (300 materials) | **23.20 K** vs ideal 21.30 K committed before the run ([HOLDOUT_PREREG.md](HOLDOUT_PREREG.md)) |
 | Noise ladder (frozen 50) | ideal 23.00 -> noisy sim 22.86 -> **real QPU 22.89 K** |
 | Mitigation ablation | raw 24.62 -> **TREX 22.90** -> +DD/+twirl/ZNE: no further gain |
 | Tiled A/B (25 copies) | single 23.61 vs tiled 24.16 K, 50 -> 2 rows, 12 vs 41 QPU-s |

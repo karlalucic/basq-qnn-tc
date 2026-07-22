@@ -33,4 +33,13 @@ Ideal statevector result on the holdout: **RMSE 21.30 K, MAE 14.84 K**.
 
 ## Hardware result
 
-To be filled in after the job completes: job ID, RMSE, MAE, QPU seconds.
+Run 2026-07-22 on `ibm_fez`: K = 25 tiles, 12 parameter rows, 2048 shots,
+job `d9geeb4inv1c73asg47g` (18.0 QPU-s), submitted in the same Batch as the
+200-point test-set job `d9geeaineu4c739qnufg`.
+
+**Hardware RMSE 23.20 K, MAE 15.92 K** against the preregistered ideal of
+21.30 K, with per-point correlation to the ideal predictions r = 0.990. The
+1.9 K hardware-minus-ideal gap matches the same-day full-test-set run under
+the identical protocol (20.78 K hardware vs 19.83 K ideal). Expectation
+values: `data/qpu_evs_holdout300_fez.npy`; per-point stds:
+`data/qpu_stds_holdout300_fez.npy`; run metadata: `data/final_runs_jobs.json`.
