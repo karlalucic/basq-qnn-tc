@@ -674,7 +674,13 @@
     "rows": 8,
     "shots": 2048,
     "options": "res1+DD(XY4)+gate_twirl shots=2048",
-    "submitted_utc": "2026-07-23T07:51:29.375394+00:00"
+    "submitted_utc": "2026-07-23T07:51:29.375394+00:00",
+    "status": "DONE",
+    "rmse_k": 20.84,
+    "mae_k": 14.95,
+    "ideal_rmse_k": 19.83,
+    "r_vs_ideal": 0.9923,
+    "quantum_seconds": 16
   },
   {
     "kind": "candidates",
@@ -693,7 +699,9 @@
     "rows": 90,
     "shots": 2048,
     "options": "res1+DD(XY4)+gate_twirl shots=2048",
-    "submitted_utc": "2026-07-23T07:54:33.064296+00:00"
+    "submitted_utc": "2026-07-23T07:54:33.064296+00:00",
+    "status": "DONE",
+    "quantum_seconds": 64
   },
   {
     "kind": "candidates",
@@ -712,7 +720,9 @@
     "rows": 70,
     "shots": 2048,
     "options": "res1+DD(XY4)+gate_twirl shots=2048",
-    "submitted_utc": "2026-07-23T07:54:34.452214+00:00"
+    "submitted_utc": "2026-07-23T07:54:34.452214+00:00",
+    "status": "DONE",
+    "quantum_seconds": 52
   },
   {
     "kind": "multiseed",
@@ -735,6 +745,20 @@
     "seg_weights": [
       "data/trained_weights_q4_l2_pls_seed17.npy",
       "data/trained_weights_q4_l2_pls_seed27.npy"
+    ],
+    "status": "DONE",
+    "quantum_seconds": 20,
+    "per_seed": [
+      {
+        "seed": "seed17",
+        "rmse_k": 21.47,
+        "ideal_rmse_k": 20.13
+      },
+      {
+        "seed": "seed27",
+        "rmse_k": 21.54,
+        "ideal_rmse_k": 20.13
+      }
     ]
   },
   {
@@ -755,7 +779,13 @@
     "shots": 2048,
     "options": "res1+DD(XY4)+gate_twirl shots=2048",
     "submitted_utc": "2026-07-23T08:43:19.852282+00:00",
-    "entangle": false
+    "entangle": false,
+    "status": "DONE",
+    "rmse_k": 23.65,
+    "mae_k": 17.44,
+    "ideal_rmse_k": 23.66,
+    "r_vs_ideal": 0.9997,
+    "quantum_seconds": 40
   },
   {
     "kind": "fullset_pitt",
@@ -774,7 +804,13 @@
     "rows": 90,
     "shots": 2048,
     "options": "res1+DD(XY4)+gate_twirl shots=2048",
-    "submitted_utc": "2026-07-23T10:27:06.749907+00:00"
+    "submitted_utc": "2026-07-23T10:27:06.749907+00:00",
+    "status": "DONE",
+    "rmse_k": 21.64,
+    "mae_k": 15.05,
+    "ideal_rmse_k": 20.33,
+    "r_vs_ideal": 0.9934,
+    "quantum_seconds": 65
   },
   {
     "kind": "fullset_pitt",
@@ -793,7 +829,13 @@
     "rows": 90,
     "shots": 2048,
     "options": "res1+DD(XY4)+gate_twirl shots=2048",
-    "submitted_utc": "2026-07-23T10:27:07.747102+00:00"
+    "submitted_utc": "2026-07-23T10:27:07.747102+00:00",
+    "status": "DONE",
+    "rmse_k": 21.95,
+    "mae_k": 15.14,
+    "ideal_rmse_k": 20.74,
+    "r_vs_ideal": 0.9904,
+    "quantum_seconds": 65
   },
   {
     "kind": "fullset_pitt",
@@ -812,7 +854,13 @@
     "rows": 90,
     "shots": 2048,
     "options": "res1+DD(XY4)+gate_twirl shots=2048",
-    "submitted_utc": "2026-07-23T10:27:08.790613+00:00"
+    "submitted_utc": "2026-07-23T10:27:08.790613+00:00",
+    "status": "DONE",
+    "rmse_k": 22.08,
+    "mae_k": 15.12,
+    "ideal_rmse_k": 20.61,
+    "r_vs_ideal": 0.9894,
+    "quantum_seconds": 65
   },
   {
     "kind": "fullset_pitt",
@@ -831,7 +879,13 @@
     "rows": 90,
     "shots": 2048,
     "options": "res1+DD(XY4)+gate_twirl shots=2048",
-    "submitted_utc": "2026-07-23T10:27:09.865640+00:00"
+    "submitted_utc": "2026-07-23T10:27:09.865640+00:00",
+    "status": "DONE",
+    "rmse_k": 21.83,
+    "mae_k": 14.91,
+    "ideal_rmse_k": 20.55,
+    "r_vs_ideal": 0.9923,
+    "quantum_seconds": 65
   },
   {
     "kind": "fullset_pitt",
@@ -850,7 +904,13 @@
     "rows": 90,
     "shots": 2048,
     "options": "res1+DD(XY4)+gate_twirl shots=2048",
-    "submitted_utc": "2026-07-23T10:27:10.662966+00:00"
+    "submitted_utc": "2026-07-23T10:27:10.662966+00:00",
+    "status": "DONE",
+    "rmse_k": 21.82,
+    "mae_k": 15.22,
+    "ideal_rmse_k": 20.62,
+    "r_vs_ideal": 0.9917,
+    "quantum_seconds": 65
   },
   {
     "kind": "fullset_pitt",
@@ -869,7 +929,13 @@
     "rows": 90,
     "shots": 2048,
     "options": "res1+DD(XY4)+gate_twirl shots=2048",
-    "submitted_utc": "2026-07-23T10:27:11.428781+00:00"
+    "submitted_utc": "2026-07-23T10:27:11.428781+00:00",
+    "status": "DONE",
+    "rmse_k": 21.15,
+    "mae_k": 14.46,
+    "ideal_rmse_k": 19.68,
+    "r_vs_ideal": 0.9929,
+    "quantum_seconds": 65
   },
   {
     "kind": "fullset_pitt",
@@ -888,7 +954,13 @@
     "rows": 67,
     "shots": 2048,
     "options": "res1+DD(XY4)+gate_twirl shots=2048",
-    "submitted_utc": "2026-07-23T10:27:12.350287+00:00"
+    "submitted_utc": "2026-07-23T10:27:12.350287+00:00",
+    "status": "DONE",
+    "rmse_k": 21.39,
+    "mae_k": 14.62,
+    "ideal_rmse_k": 20.35,
+    "r_vs_ideal": 0.9895,
+    "quantum_seconds": 51
   },
   {
     "kind": "depth200",
@@ -907,7 +979,13 @@
     "rows": 8,
     "shots": 2048,
     "options": "res1+DD(XY4)+gate_twirl shots=2048",
-    "submitted_utc": "2026-07-23T10:27:14.095317+00:00"
+    "submitted_utc": "2026-07-23T10:27:14.095317+00:00",
+    "status": "DONE",
+    "rmse_k": 21.15,
+    "mae_k": 15.09,
+    "ideal_rmse_k": 20.31,
+    "r_vs_ideal": 0.9917,
+    "quantum_seconds": 16
   },
   {
     "kind": "pec",
@@ -926,7 +1004,13 @@
     "rows": 50,
     "shots": 2048,
     "options": "res1+gate_twirl shots=2048+PEC(max_overhead=8)",
-    "submitted_utc": "2026-07-23T10:27:14.885835+00:00"
+    "submitted_utc": "2026-07-23T10:27:14.885835+00:00",
+    "status": "DONE",
+    "rmse_k": 23.03,
+    "mae_k": 16.68,
+    "ideal_rmse_k": 23.0,
+    "r_vs_ideal": 0.9996,
+    "quantum_seconds": 231
   },
   {
     "kind": "anchor",
@@ -945,6 +1029,12 @@
     "rows": 8,
     "shots": 2048,
     "options": "res1+DD(XY4)+gate_twirl shots=2048",
-    "submitted_utc": "2026-07-23T10:27:15.956783+00:00"
+    "submitted_utc": "2026-07-23T10:27:15.956783+00:00",
+    "status": "DONE",
+    "rmse_k": 20.84,
+    "mae_k": 14.96,
+    "ideal_rmse_k": 19.83,
+    "r_vs_ideal": 0.9924,
+    "quantum_seconds": 16
   }
 ]
