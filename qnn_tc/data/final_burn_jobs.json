@@ -713,5 +713,48 @@
     "shots": 2048,
     "options": "res1+DD(XY4)+gate_twirl shots=2048",
     "submitted_utc": "2026-07-23T07:54:34.452214+00:00"
+  },
+  {
+    "kind": "multiseed",
+    "desc": "seeds 17+27 on test200, one job",
+    "backend": "ibm_fez",
+    "job_id": "d9gt85rsbqfc73ep81ag",
+    "mode": "tiled",
+    "layers": 2,
+    "weights": "data/trained_weights_q4_l2_pls_seed17.npy",
+    "data": "data/prepared_4d_pls.npz",
+    "xkey": "X_test",
+    "ykey": "y_test",
+    "i0": 0,
+    "i1": 200,
+    "K": 25,
+    "rows": 16,
+    "shots": 2048,
+    "options": "res1+DD(XY4)+gate_twirl shots=2048",
+    "submitted_utc": "2026-07-23T08:43:03.968566+00:00",
+    "seg_weights": [
+      "data/trained_weights_q4_l2_pls_seed17.npy",
+      "data/trained_weights_q4_l2_pls_seed27.npy"
+    ]
+  },
+  {
+    "kind": "noent",
+    "desc": "no-entanglement control, frozen50",
+    "backend": "ibm_fez",
+    "job_id": "d9gt89shonhs73ac7ofg",
+    "mode": "untiled",
+    "layers": 2,
+    "weights": "data/trained_weights_q4_l2_pls_noent.npy",
+    "data": "data/prepared_4d_pls.npz",
+    "xkey": "X_test",
+    "ykey": "y_test",
+    "i0": 0,
+    "i1": 50,
+    "K": null,
+    "rows": 50,
+    "shots": 2048,
+    "options": "res1+DD(XY4)+gate_twirl shots=2048",
+    "submitted_utc": "2026-07-23T08:43:19.852282+00:00",
+    "entangle": false
   }
 ]

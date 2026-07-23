@@ -31,10 +31,11 @@ def load_xy(rec):
 
 
 _qnn_cache = {}
-def ideal_evs(layers, weights_path, X):
-    key = (layers, weights_path)
+def ideal_evs(layers, weights_path, X, entangle=True):
+    key = (layers, weights_path, entangle)
     if key not in _qnn_cache:
-        _qnn_cache[key] = (make_qnn(4, layers, 4)[0], np.load(weights_path))
+        _qnn_cache[key] = (make_qnn(4, layers, 4, entangle=entangle)[0],
+                           np.load(weights_path))
     qnn, w = _qnn_cache[key]
     return np.asarray(qnn.forward(X, w)).ravel()
 
@@ -54,6 +55,32 @@ def main():
         status = str(job.status())
         if "DONE" not in status.upper():
             print(f"{tag}: {status}")
+            continue
+
+        if r["kind"] == "multiseed":
+            # one job, two weight segments over the same 200 points
+            X, y, d = load_xy(r)
+            raw = np.asarray(job.result()[0].data.evs)
+            np.save(f"data/burn_evs_{r['job_id']}.npy", raw)
+            try:
+                qs = job.metrics()["usage"]["quantum_seconds"]
+            except Exception:
+                qs = float("nan")
+            rows_seg = int(np.ceil(len(X) / r["K"]))
+            parts = []
+            for si, wpath in enumerate(r["seg_weights"]):
+                evs = raw[si * rows_seg:(si + 1) * rows_seg].reshape(-1)[:len(X)]
+                rm, _ = rmse_kelvin(y, evs, d)
+                rm_i, _ = rmse_kelvin(y, ideal_evs(r["layers"], wpath, X), d)
+                parts.append((wpath.split("_")[-1].replace(".npy", ""), rm, rm_i))
+            msg = " | ".join(f"{s}: {rm:.2f} K (ideal {ri:.2f})"
+                             for s, rm, ri in parts)
+            print(f"{tag}: {msg} ({qs:.1f} QPU-s)")
+            r.update({"status": "DONE", "quantum_seconds": qs,
+                      "per_seed": [{"seed": s, "rmse_k": round(rm, 2),
+                                    "ideal_rmse_k": round(ri, 2)}
+                                   for s, rm, ri in parts]})
+            n_done += 1
             continue
 
         if r["kind"] == "candidates":
@@ -82,7 +109,7 @@ def main():
         except Exception:
             qs = float("nan")
 
-        ideal = ideal_evs(r["layers"], r["weights"], X)
+        ideal = ideal_evs(r["layers"], r["weights"], X, r.get("entangle", True))
 
         if r["mode"] == "broadcast":
             # raw is (rows=points, K tiles): per-tile error vs calibration score
