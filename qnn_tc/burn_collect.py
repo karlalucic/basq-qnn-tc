@@ -56,6 +56,19 @@ def main():
             print(f"{tag}: {status}")
             continue
 
+        if r["kind"] == "candidates":
+            # no labels: save evs, stitch + rank-compare once all chunks land
+            data = job.result()[0].data
+            np.save(f"data/burn_evs_{r['job_id']}.npy", np.asarray(data.evs))
+            try:
+                qs = job.metrics()["usage"]["quantum_seconds"]
+            except Exception:
+                qs = float("nan")
+            print(f"{tag} [{r['i0']}:{r['i1']}]: DONE ({qs:.1f} QPU-s)")
+            r.update({"status": "DONE", "quantum_seconds": qs})
+            n_done += 1
+            continue
+
         X, y, d = load_xy(r)
         data = job.result()[0].data
         raw = np.asarray(data.evs)
@@ -117,6 +130,30 @@ def main():
         print(f"\nFULLSET stitched ({len(evs)} materials on hardware): "
               f"train_full RMSE {rm_tr:.2f} K, test_full RMSE {rm_te:.2f} K "
               f"MAE {ma_te:.2f} K, r_vs_ideal={r_all:.4f}")
+
+    # stitch the candidate screen once every chunk is in
+    cand = sorted([r for r in recs if r["kind"] == "candidates"],
+                  key=lambda r: r["i0"])
+    if cand and all(r.get("status") == "DONE" for r in cand):
+        import pandas as pd
+        from scipy.stats import spearmanr
+
+        from prep_data import inverse_target
+        evs = np.concatenate([
+            np.asarray(np.load(f"data/burn_evs_{r['job_id']}.npy"))
+            .reshape(-1)[: r["i1"] - r["i0"]] for r in cand])
+        meta = np.load(cand[0]["data"])
+        tc_hw = inverse_target(np.clip(evs, -1, 1),
+                               float(meta["y_min"]), float(meta["y_max"]))
+        df = pd.read_csv("data/candidates_screen.csv")
+        df["tc_hw_K"] = np.round(tc_hw, 2)
+        df.to_csv("data/candidates_screen.csv", index=False)
+        rho = spearmanr(df["tc_ideal_K"], df["tc_hw_K"]).statistic
+        top = df[~df["out_of_range"]].nlargest(10, "tc_hw_K")
+        print(f"\nCANDIDATE SCREEN stitched ({len(df)} candidates on hardware): "
+              f"Spearman rank agreement hardware-vs-ideal rho={rho:.4f}")
+        print(top[["formula", "gen", "tc_ideal_K", "tc_hw_K"]]
+              .to_string(index=False))
 
     with open(REG, "w") as f:
         json.dump(recs, f, indent=2)

@@ -40,7 +40,7 @@ from qnn import make_qnn
 
 SHOTS = 2048
 N_LOSS = 150
-C0, A0, A_STAB, STEP_CLIP = 0.10, 0.03, 5, 0.05
+C0, A0, A_STAB, STEP_CLIP = 0.10, 0.20, 5, 0.05
 W_CHAMP = "data/trained_weights_q4_l2_pls.npy"
 CKPT = "data/hw_finetune_weights.npy"
 LOG = "data/hw_finetune_log.jsonl"

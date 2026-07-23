@@ -360,9 +360,29 @@ def run_depth(service, dry):
         batch.close()
 
 
+def run_anchor(service, dry):
+    """Identical tiled test200 on ibm_fez, resubmitted on later days: gives
+    the headline number a cross-calibration, cross-day error bar."""
+    d = dict(np.load(PLS))
+    X, w = d["X_test"], np.load(W_CHAMP)
+    preflight_standard(X, w, 2)
+    if dry:
+        print("anchor: would submit tiled test200 on ibm_fez")
+        return
+    b = service.backend("ibm_fez")
+    isa, obs, tin, twt, k, scores = pack(b, 2)
+    est, odesc = make_est(b)
+    pv, rows = build_pv(tin, twt, X, w, k, list(isa.parameters))
+    job = est.run([(isa, obs, pv)])
+    print(f"  anchor test200 on ibm_fez: job {job.job_id()}")
+    log_job(base_rec("anchor", "cross-day stability anchor (test200)",
+                     "ibm_fez", job, "tiled", 2, W_CHAMP, PLS,
+                     "X_test", "y_test", 0, 200, k, rows, SHOTS, odesc))
+
+
 RUNNERS = {"fullset": run_fullset, "devices": run_devices,
            "tilesel": run_tilesel, "tilemap": run_tilemap,
-           "shots": run_shots, "depth": run_depth}
+           "shots": run_shots, "depth": run_depth, "anchor": run_anchor}
 
 
 def main():
