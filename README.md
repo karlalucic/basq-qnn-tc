@@ -17,8 +17,10 @@ The app runs the model in the browser; its source is maintained separately.
 | Ideal simulator → noisy simulator → real QPU (`ibm_fez`, same 50 materials) | 23.00 → 22.86 → **22.89 K** (r = 0.999) |
 | QPU time per 50-material screen (25 circuit copies tiled on the 156-qubit chip) | 41 → **12 s** (+0.55 K) |
 | Selection quality on held-out materials (top-10 vs random pick) | 8/10 vs 3.8, a **2.1× enrichment** |
-| Full 200-material test set on hardware, tiled (`ibm_fez` and `ibm_marrakesh`) | **20.78 / 21.52 K** vs 19.83 K ideal |
+| Full 200-material test set on hardware, replicated on five devices | **20.75 to 21.71 K** vs 19.83 K ideal (r = 0.99 on all five) |
+| The whole cleaned dataset, 15,170 materials, on two processor generations | test split **21.24 / 21.18 K** (`ibm_fez` / `ibm_pittsburgh`) |
 | Preregistered 300-material fresh holdout on hardware, never touched before the run | **23.20 K** vs 21.30 K ideal, committed in advance |
+| 4,000 generated candidate materials screened on hardware | rank agreement with simulation **rho = 0.98**; top 10 all Hg-cuprates |
 
 The champion circuit: 4 qubits × 2 layers, 32 parameters, supervised PLS-4
 inputs, one chain of 3 CZ gates. It transpiles to ISA depth 21 with zero SWAPs
@@ -26,12 +28,15 @@ on IBM Heron. Gradient boosting trained on the full 12k-row training split of
 the same four inputs reaches 15.9 K; we report it because the claim here is
 parameter efficiency and hardware viability, not best-in-class accuracy.
 
-In the final access window (July 22) the full test set ran tiled on two Heron
-devices, and a fresh 300-material holdout ran under a preregistered protocol:
-input hashes and ideal predictions were committed publicly before the job was
-submitted. Protocol and result:
-[`qnn_tc/HOLDOUT_PREREG.md`](qnn_tc/HOLDOUT_PREREG.md); every number traces to
-an IBM job ID in [`qnn_tc/data/final_runs_jobs.json`](qnn_tc/data/final_runs_jobs.json).
+When BasQ extended QPU access through July 24 we ran a closing campaign:
+close to 90 jobs on five IBM devices across three processor families,
+including a preregistered holdout (hashes and ideal predictions committed
+before submission), a five-device replication, a per-tile error map that
+shows IBM's calibration data predicting realized error at r = 0.99, the
+complete error-mitigation matrix, a no-entanglement control, and SPSA
+fine-tuning running on the QPU itself. The full record with every job ID:
+[`qnn_tc/FINAL_WEEK.md`](qnn_tc/FINAL_WEEK.md) and
+[`qnn_tc/HOLDOUT_PREREG.md`](qnn_tc/HOLDOUT_PREREG.md).
 
 ## Start here
 
